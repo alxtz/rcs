@@ -1,9 +1,9 @@
 # Testing
 ```
-air --build.cmd "true" --build.bin "go test ./cmd/binary-tree-inorder-traversal"
+air --build.cmd "true" --build.bin "go test -v ./cmd/144"
+air --build.cmd "true" --build.bin "gotestsum -- -v ./cmd/144"
 ```
 
 # Running
 ```
-air --build.cmd "go test ./cmd/binary-tree-inorder-traversal"
 ```
