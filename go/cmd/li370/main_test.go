@@ -34,14 +34,38 @@ func Test_ShouldPass2(t *testing.T) {
 }
 
 func Test_ShouldPass3(t *testing.T) {
-	t.Skip()
+	// t.Skip()
 	assert.Exactly(
 		t,
 		[]string{"A", "B", "+", "C", "D", "-", "*"},
 		ConvertToRPN([]string{
 			"(", "A", "+", "B", ")",
 			"*",
-			"(", "C", "+", "D", ")",
+			"(", "C", "-", "D", ")",
+		}),
+	)
+}
+
+func Test_ShouldPass4(t *testing.T) {
+	// t.Skip()
+	assert.Exactly(
+		t,
+		[]string{},
+		ConvertToRPN([]string{
+			"(", "(", "(", ")", ")", ")",
+		}),
+	)
+}
+
+func Test_ShouldPass5(t *testing.T) {
+	// t.Skip()
+	assert.Exactly(
+		t,
+		[]string{
+			"2", "6", "*", "23", "7", "+", "1", "2", "+", "/", "-",
+		},
+		ConvertToRPN([]string{
+			"2", "*", "6", "-", "(", "23", "+", "7", ")", "/", "(", "1", "+", "2", ")",
 		}),
 	)
 }
