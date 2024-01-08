@@ -1,4 +1,4 @@
-package mapset
+package ds
 
 import (
 	"encoding/json"
