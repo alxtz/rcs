@@ -69,3 +69,16 @@ func Test_ShouldPass5(t *testing.T) {
 		}),
 	)
 }
+
+func Test_ShouldPass6(t *testing.T) {
+	// t.Skip()
+	assert.Exactly(
+		t,
+		[]string{
+			"2", "6", "*", "23", "7", "+", "1", "2", "+", "/", "-",
+		},
+		ConvertToRPN([]string{
+			"2", "*", "6", "-", "(", "23", "+", "7", ")", "/", "(", "1", "+", "2", ")",
+		}),
+	)
+}

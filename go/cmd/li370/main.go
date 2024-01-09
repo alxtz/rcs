@@ -1,114 +1,86 @@
 package main
 
-import (
-	"strings"
-)
-
 func main() {
-	// fmt.Println("Hello, World")
+}
+
+var presdMap = map[string]int{
+	"+": 1,
+	"-": 1,
+	"*": 2,
+	"/": 2,
 }
 
 func ConvertToRPN(expression []string) []string {
-	return SimpleToRPN(expression)
-}
-
-func SimpleToRPN(expression []string) []string {
-	if len(expression) == 0 {
-		return []string{}
-	}
+	var oprStack = Stack{}
+	var numQueue = Queue{}
 
 	var input = expression
 
-	var numStack = Stack{Slice: []string{}}
-	var oprStack = Stack{Slice: []string{}}
-
 	for {
 		if len(input) == 0 {
-			break
+			if len(oprStack.Slice) != 0 {
+				var toPop = oprStack.Pop()
+				numQueue.Enque(toPop)
+				continue
+			} else {
+				break
+			}
 		}
 
-		var char = input[0]
+		var head = input[0]
 
-		// fmt.Println("char", input[0])
+		if head == "+" || head == "-" || head == "*" || head == "/" {
+			var oprToPush = head
 
-		// fmt.Println("loop", input)
+			if len(oprStack.Slice) > 0 {
+				var toPushPresd = presdMap[head]
 
-		if char == "+" || char == "-" || char == "*" || char == "/" {
-			var operatorToPush = char
-
-			oprStack.Push(operatorToPush)
-		} else if char == "(" {
-			// fmt.Println("fix.1", input)
-			var leftPthCount = 0
-			var rightPthCount = 0
-
-			var rightPtsIndex int
-
-			for i, val := range input {
-				if val == "(" {
-					leftPthCount++
-					continue
-				}
-				if val == ")" {
-					rightPthCount++
-
-					if leftPthCount == rightPthCount {
-						rightPtsIndex = i
+				for {
+					if len(oprStack.Slice) == 0 {
 						break
 					}
 
-					continue
+					var topEle = oprStack.Slice[len(oprStack.Slice)-1]
+					if topEle == "(" {
+						break
+					}
+
+					var topElePresd = presdMap[topEle]
+
+					if toPushPresd <= topElePresd {
+						numQueue.Enque(oprStack.Pop())
+						continue
+					} else {
+						break
+					}
 				}
 			}
 
-			// fmt.Println("r", rightPtsIndex, input)
-
-			var bulk = input[1:rightPtsIndex]
-			input = input[rightPtsIndex+1:]
-
-			// fmt.Println("fix.2", bulk, input)
-
-			var r = strings.Join(SimpleToRPN(bulk), "")
-			// fmt.Println("fix.3", r, input)
-			numStack.Push(r)
-
-			continue
+			oprStack.Push(oprToPush)
+		} else if head == "(" {
+			oprStack.Push(head)
+		} else if head == ")" {
+			for {
+				var topEle = oprStack.Slice[len(oprStack.Slice)-1]
+				if topEle == "(" {
+					oprStack.Pop()
+					break
+				} else {
+					numQueue.Enque(oprStack.Pop())
+				}
+			}
 		} else {
-			numStack.Push(char)
-
-			var lengthOk = len(numStack.Slice) >= 2 && len(oprStack.Slice) >= 1
-			if lengthOk {
-				var topOfOprStack = oprStack.Slice[len(oprStack.Slice)-1]
-				// if slices.Contains([]string{"*", "/"}, topOfOprStack) {
-				if topOfOprStack == "*" || topOfOprStack == "/" {
-					var pop1st = numStack.Pop()
-					var pop2nd = numStack.Pop()
-					var bulk = pop2nd + pop1st + oprStack.Pop()
-					numStack.Push(bulk)
-				}
-			}
+			numQueue.Enque(head)
 		}
 
 		input = input[1:]
 	}
 
-	var numQueue = Queue(numStack)
-	var oprQueue = Queue(oprStack)
-
-	for {
-		var lengthOk = len(numQueue.Slice) >= 2 && len(oprQueue.Slice) >= 1
-		if lengthOk {
-			var pop1st = numQueue.Pop()
-			var pop2nd = numQueue.Pop()
-			var bulk = pop1st + pop2nd + oprQueue.Pop()
-			// fmt.Println("bulk", bulk)
-			numQueue.Slice = append([]string{bulk}, numQueue.Slice...) // prepend
-		} else {
-			break
-		}
+	if numQueue.Slice == nil {
+		return []string{}
 	}
 
-	return strings.Split(numQueue.Slice[0], "")
+	return numQueue.Slice
 }
 
 type Stack struct {
@@ -130,13 +102,13 @@ type Queue struct {
 	Slice []string
 }
 
-func (q *Queue) Pop() string {
+func (q *Queue) Deque() string {
 	var itemToPop = q.Slice[0]
 	q.Slice = q.Slice[1:len(q.Slice)]
 
 	return itemToPop
 }
 
-func (q *Queue) Push(val string) {
+func (q *Queue) Enque(val string) {
 	q.Slice = append(q.Slice, val)
 }
