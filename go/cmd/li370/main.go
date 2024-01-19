@@ -1,6 +1,20 @@
 package main
 
+import "fmt"
+
 func main() {
+
+	fmt.Println(ConvertToRPN([]string{
+		"7", "*", "8", "+", "9",
+	}))
+
+	fmt.Println(ConvertToRPN([]string{
+		"1", "+", "2", "*", "3",
+	}))
+
+	fmt.Println(ConvertToRPN([]string{
+		"4", "+", "5", "+", "6",
+	}))
 }
 
 var presdMap = map[string]int{
