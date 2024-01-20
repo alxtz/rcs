@@ -14,3 +14,11 @@ func (s *Stack[T]) Pop() T {
 func (s *Stack[T]) Push(val T) {
 	s.Slice = append(s.Slice, val)
 }
+
+func (s *Stack[T]) Len() int {
+	return len(s.Slice)
+}
+
+func (s *Stack[T]) Peek() T {
+	return s.Slice[len(s.Slice)-1]
+}

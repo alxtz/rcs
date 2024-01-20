@@ -14,3 +14,7 @@ func (q *Queue[T]) Deque() T {
 func (q *Queue[T]) Enque(val T) {
 	q.Slice = append(q.Slice, val)
 }
+
+func (q *Queue[T]) Len() int {
+	return len(q.Slice)
+}
