@@ -37,81 +37,52 @@ func parsing(s string) []string {
 func calculate(s string) int {
 	var input = parsing(s)
 
-	oprStack := ds.Stack[string]{Slice: []string{}}
-	numStack := ds.Stack[int]{Slice: []int{}}
-
-	shouldPack := false
+	toFinalCompute := ds.Stack[string]{Slice: []string{}}
 
 	for _, val := range input {
-		if val == " " {
-			continue
-		}
-
-		fmt.Println(ds.Readable(oprStack.Slice))
-		fmt.Println(ds.Readable(numStack.Slice))
-		fmt.Println("---")
-
-		if val == "+" || val == "-" {
-			oprStack.Push(val)
-		} else if val == "(" {
-			oprStack.Push(val)
-		} else if val == ")" {
-			oprStack.Pop()
-			shouldPack = true
-		} else {
-			num, _ := strconv.Atoi(val)
-			numStack.Push(num)
-			shouldPack = true
-		}
-
-		for shouldPack {
-			fmt.Println("packing", val)
-			if (oprStack.Len() > 0 && oprStack.Peek() == "(") || len(oprStack.Slice) == 0 {
-				shouldPack = false
-				continue
-			}
-
-			if numStack.Len() == 0 {
-				shouldPack = false
-				continue
-			}
-
-			if numStack.Len() >= 2 {
-				rightVal := numStack.Pop()
-				leftVal := numStack.Pop()
-				opr := oprStack.Pop()
-
-				var val int
-
-				if opr == "+" {
-					val = leftVal + rightVal
+		if val == ")" {
+			collect := []string{}
+			for {
+				toPop := toFinalCompute.Pop()
+				if toPop != "(" {
+					collect = append([]string{toPop}, collect...)
 				} else {
-					val = leftVal - rightVal
+					break
 				}
-
-				numStack.Push(val)
-				continue
 			}
 
-			if numStack.Len() == 1 {
-				rightVal := numStack.Pop()
-				oprStack.Pop()
-
-				// var val int
-
-				// if opr == "+" {
-				// 	val = leftVal + rightVal
-				// } else {
-				// 	val = leftVal - rightVal
-				// }
-
-				numStack.Push(-rightVal)
-				shouldPack = false
-				continue
-			}
-
+			toFinalCompute.Push(fmt.Sprint(symbolsToInt(collect)))
+		} else {
+			toFinalCompute.Push(val)
 		}
 	}
 
-	return numStack.Slice[0]
+	return symbolsToInt(toFinalCompute.Slice)
+}
+
+func symbolsToInt(symbols []string) int {
+	var accu = 0
+	var minusOn = false
+
+	for _, val := range symbols {
+		if val == "-" {
+			minusOn = true
+			continue
+		}
+
+		if val == "+" {
+			continue
+		}
+
+		num, _ := strconv.Atoi(val)
+
+		if minusOn {
+			accu -= num
+			minusOn = false
+		} else {
+			accu += num
+		}
+	}
+
+	return accu
 }
