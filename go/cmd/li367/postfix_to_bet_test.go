@@ -46,6 +46,10 @@ func Test_ShouldPassBet1(t *testing.T) {
 	// 	[]string{"A", "B", "C", "*", "+"},
 	// 	ConvertToRPN([]string{"A", "+", "B", "*", "C"}),
 	// )
+
+	fmt.Println(ds.Readable(Build_2(
+		[]string{"(", "(", "(", ")", ")", ")"},
+	)))
 }
 
 func Test_ShouldPassBet2(t *testing.T) {

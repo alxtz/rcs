@@ -12,8 +12,6 @@ var precMap = map[string]int{
 }
 
 func ConvertToRPN(infixExpr []string) (postfixExpr []string) {
-	var count = 0
-
 	var input = infixExpr
 
 	var stack = ds.Stack[string]{Slice: []string{}}
@@ -23,7 +21,6 @@ func ConvertToRPN(infixExpr []string) (postfixExpr []string) {
 		if len(input) == 0 {
 			for len(stack.Slice) > 0 {
 				queue.Enque(stack.Pop())
-				count++
 			}
 
 			break
