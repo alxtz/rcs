@@ -1,4 +1,4 @@
-package main
+package add
 
 import (
 	"testing"
@@ -61,3 +61,10 @@ func Test_ShouldPolyAddWork6(t *testing.T) {
 // 		PolyAdd(Polynomial{"-2e"}, Polynomial{"4e"}),
 // 	)
 // }
+
+func Test_ShouldPolyAddWorkWhenDel(t *testing.T) {
+	assert.Nil(
+		t,
+		PolyAdd(Polynomial{"1*e*a"}, Polynomial{"-1*e*a"}),
+	)
+}

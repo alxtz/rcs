@@ -1,9 +1,13 @@
-package main
+package mult
 
 import (
+	"complicated-prob-solving/cmd/770/utils"
+	"fmt"
 	"strconv"
 	"strings"
 )
+
+type Polynomial []string
 
 func PolyMult(leftVal Polynomial, rightVal Polynomial) Polynomial {
 	if len(leftVal) == 1 && len(rightVal) == 1 {
@@ -47,7 +51,37 @@ func PolyMult(leftVal Polynomial, rightVal Polynomial) Polynomial {
 		}
 	}
 
-	var packedPoly = bulkPolynomial
+	fmt.Println("bulkPoly", bulkPolynomial)
+
+	// TODO: implementing packing
+	termsMap := map[string]int{}
+
+	defaultCoe := 0
+
+	for _, termStr := range bulkPolynomial {
+		coe, indeterminate := utils.ExtractFromTerm(termStr)
+
+		if indeterminate == nil {
+			defaultCoe += coe
+			continue
+		}
+
+		termsMap[*indeterminate] += coe
+	}
+
+	fmt.Println("map", termsMap)
+
+	packedPoly := []string{}
+	for kIndeterminate, vCoe := range termsMap {
+		if vCoe != 0 {
+			packedPoly = append(packedPoly, strconv.Itoa(vCoe)+"*"+kIndeterminate)
+		}
+	}
+
+	if defaultCoe != 0 {
+		packedPoly = append(packedPoly, strconv.Itoa(defaultCoe))
+	}
+
 	var sortedPoly = packedPoly
 
 	return sortedPoly
