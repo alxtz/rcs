@@ -1,8 +1,8 @@
 package main
 
 import (
-	ds "complicated-prob-solving"
 	"fmt"
+	ds "rcs/pkg/ds"
 	"slices"
 	"strconv"
 )

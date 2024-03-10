@@ -1,4 +1,4 @@
-module complicated-prob-solving
+module rcs
 
 go 1.21.5
 

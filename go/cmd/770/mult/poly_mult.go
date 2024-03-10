@@ -1,7 +1,7 @@
 package mult
 
 import (
-	"complicated-prob-solving/cmd/770/utils"
+	"rcs/cmd/770/utils"
 	"strconv"
 	"strings"
 )

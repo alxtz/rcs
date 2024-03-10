@@ -1,7 +1,7 @@
 package main
 
 import (
-	ds "complicated-prob-solving"
+	ds "rcs/pkg/ds"
 )
 
 var precMap = map[string]int{

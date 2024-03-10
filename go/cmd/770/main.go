@@ -1,12 +1,12 @@
 package main
 
 import (
-	ds "complicated-prob-solving"
-	"complicated-prob-solving/cmd/770/add"
-	"complicated-prob-solving/cmd/770/minus"
-	"complicated-prob-solving/cmd/770/mult"
-	"complicated-prob-solving/cmd/770/utils"
 	"fmt"
+	"rcs/cmd/770/add"
+	"rcs/cmd/770/minus"
+	"rcs/cmd/770/mult"
+	"rcs/cmd/770/utils"
+	ds "rcs/pkg/ds"
 	"slices"
 )
 

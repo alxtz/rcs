@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	ds "complicated-prob-solving"
+	ds "rcs"
 )
 
 func Test_ShouldPassBet0(t *testing.T) {

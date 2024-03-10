@@ -1,6 +1,6 @@
 package main
 
-import ds "complicated-prob-solving"
+import ds "rcs/pkg/ds"
 
 func main() {
 }

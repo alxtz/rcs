@@ -1,8 +1,8 @@
 package main
 
 import (
-	"complicated-prob-solving/cmd/770/mult"
-	"complicated-prob-solving/cmd/770/utils"
+	"rcs/cmd/770/mult"
+	"rcs/cmd/770/utils"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
