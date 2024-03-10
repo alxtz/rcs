@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+type Polynomial []string
+
 func ExtractFromTerm(term string) (coe int, indeterminate *string) {
 	indeterminate = nil
 	coe = 0
@@ -24,8 +26,9 @@ func ExtractFromTerm(term string) (coe int, indeterminate *string) {
 	return coe, indeterminate
 }
 
-func SortPoly(poly []string) []string {
-	input := append([]string{}, poly...)
+func SortPoly(poly Polynomial) Polynomial {
+	strPoly := ([]string)(poly)
+	input := append([]string{}, strPoly...)
 	// lexicographical ordered
 	slices.SortFunc(input, func(a, b string) int {
 		return strings.Compare(a, b)

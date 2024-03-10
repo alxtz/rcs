@@ -2,14 +2,12 @@ package mult
 
 import (
 	"complicated-prob-solving/cmd/770/utils"
-	"fmt"
 	"strconv"
 	"strings"
 )
 
-type Polynomial []string
-
-func PolyMult(leftVal Polynomial, rightVal Polynomial) Polynomial {
+func PolyMult(leftVal utils.Polynomial, rightVal utils.Polynomial) utils.Polynomial {
+	// fmt.Println("called", leftVal, rightVal)
 	if len(leftVal) == 1 && len(rightVal) == 1 {
 		var leftCoEff int
 		var rightCoEff int
@@ -38,22 +36,19 @@ func PolyMult(leftVal Polynomial, rightVal Polynomial) Polynomial {
 
 		finalCoE := strconv.Itoa(leftCoEff * rightCoEff)
 
-		return Polynomial{finalCoE + remainingLeft + remainingRight}
+		return utils.Polynomial{finalCoE + remainingLeft + remainingRight}
 	}
 
 	var bulkPolynomial = []string{}
 
 	for _, iVal := range leftVal {
 		for _, jVal := range rightVal {
-			var computedTerm = PolyMult(Polynomial{iVal}, Polynomial{jVal})
+			var computedTerm = PolyMult(utils.Polynomial{iVal}, utils.Polynomial{jVal})
 
 			bulkPolynomial = append(bulkPolynomial, computedTerm...)
 		}
 	}
 
-	fmt.Println("bulkPoly", bulkPolynomial)
-
-	// TODO: implementing packing
 	termsMap := map[string]int{}
 
 	defaultCoe := 0
@@ -69,8 +64,6 @@ func PolyMult(leftVal Polynomial, rightVal Polynomial) Polynomial {
 		termsMap[*indeterminate] += coe
 	}
 
-	fmt.Println("map", termsMap)
-
 	packedPoly := []string{}
 	for kIndeterminate, vCoe := range termsMap {
 		if vCoe != 0 {
@@ -82,7 +75,7 @@ func PolyMult(leftVal Polynomial, rightVal Polynomial) Polynomial {
 		packedPoly = append(packedPoly, strconv.Itoa(defaultCoe))
 	}
 
-	var sortedPoly = packedPoly
+	var sortedPoly = utils.SortPoly(packedPoly)
 
 	return sortedPoly
 }

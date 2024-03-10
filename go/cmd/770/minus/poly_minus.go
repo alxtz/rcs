@@ -1,4 +1,4 @@
-package add
+package minus
 
 import (
 	"complicated-prob-solving/cmd/770/utils"
@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func PolyAdd(leftVal utils.Polynomial, rightVal utils.Polynomial) utils.Polynomial {
+func PolyMinus(leftVal utils.Polynomial, rightVal utils.Polynomial) utils.Polynomial {
 	/*
 		zeroDegree int
 		{
@@ -66,13 +66,13 @@ func PolyAdd(leftVal utils.Polynomial, rightVal utils.Polynomial) utils.Polynomi
 		}
 
 		if degree == nil {
-			defaultDegree += coE
+			defaultDegree -= coE
 		} else {
 			existingVal, hasExisting := degreeMap[*degree]
 			if hasExisting {
-				degreeMap[*degree] = existingVal + coE
+				degreeMap[*degree] = existingVal - coE
 			} else {
-				degreeMap[*degree] = coE
+				degreeMap[*degree] = -coE
 			}
 		}
 	}
@@ -91,9 +91,7 @@ func PolyAdd(leftVal utils.Polynomial, rightVal utils.Polynomial) utils.Polynomi
 		ans = append(ans, strconv.Itoa(defaultDegree))
 	}
 
-	if len(ans) == 0 {
-		return nil
-	}
+	// fmt.Println(leftVal, rightVal, ans)
 
 	return ans
 }
