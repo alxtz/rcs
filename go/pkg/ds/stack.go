@@ -22,3 +22,7 @@ func (s *Stack[T]) Len() int {
 func (s *Stack[T]) Peek() T {
 	return s.Slice[len(s.Slice)-1]
 }
+
+func (s *Stack[T]) Empty() bool {
+	return len(s.Slice) == 0
+}
