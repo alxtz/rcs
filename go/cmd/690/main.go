@@ -7,12 +7,6 @@ import (
 
 func main() {
 	fmt.Println("Hello, World")
-
-	// getImportance([]*Employee{
-	// 	&Employee{Id: 1, Importance: 5, Subordinates: []int{2, 3}},
-	// 	&Employee{Id: 2, Importance: 3, Subordinates: []int{}},
-	// 	&Employee{Id: 3, Importance: 3, Subordinates: []int{}},
-	// }, 1)
 }
 
 type Employee struct {
