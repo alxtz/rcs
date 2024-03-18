@@ -18,3 +18,7 @@ func (q *Queue[T]) Enque(val T) {
 func (q *Queue[T]) Len() int {
 	return len(q.Slice)
 }
+
+func (q *Queue[T]) Empty() bool {
+	return len(q.Slice) == 0
+}
