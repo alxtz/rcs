@@ -33,7 +33,6 @@ func levelOrder(root *TreeNode) (ans [][]int) {
 
 		for !queue.Empty() {
 			removed := queue.Deque()
-			fmt.Println("removed", removed.Val)
 			levelAns = append(levelAns, removed.Val)
 			if removed.Left != nil {
 				nextLevelQueue.Enque(removed.Left)
