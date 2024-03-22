@@ -8,6 +8,8 @@ func main() {
 	fmt.Println("Hello, World")
 }
 
+// * = yourself
+// # = target, bubble tea
 func GetBubbleTea(grid [][]byte) int {
 
 	return -100
