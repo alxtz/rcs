@@ -54,6 +54,6 @@ func BinarySearchTemplate1(nums []int, target int) (ansIndex int) {
 	return ansIndex
 }
 
-func search(nums []int, target int) int {
+func Search(nums []int, target int) int {
 	return BinarySearchTemplate1(nums, target)
 }
