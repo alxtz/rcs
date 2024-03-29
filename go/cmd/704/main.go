@@ -1,52 +1,53 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	ans1 := BinarySearchPartitioning([]int{-1, 0, 3, 5, 9, 12}, 9)
-	fmt.Println("searching [-1,0,3,5,9,12], 9", ans1 == 4)
-
-	ans2 := BinarySearchPartitioning([]int{-1, 0, 3, 5, 9, 12}, 2)
-	fmt.Println("searching [-1,0,3,5,9,12], 9", ans2 == -1)
-
-	ans3 := BinarySearchPartitioning([]int{9}, 9)
-	fmt.Println("searching [9], 9", ans3 == 0)
-
-	ans4 := BinarySearchPartitioning([]int{0, 9}, 9)
-	fmt.Println("searching [9], 9", ans4 == 1)
-
-	ans5 := BinarySearchPartitioning([]int{0, 9}, 0)
-	fmt.Println("searching [9], 9", ans5 == 0)
-
-	ans6 := BinarySearchPartitioning([]int{2, 9}, 1)
-	fmt.Println("searching [9], 9", ans6 == -1)
+	fmt.Println("list=[4, 9, 11, 13, 18, 25], target=9, ans=??")
+	fmt.Println("ans(index) =", BinarySearchTemplate1(
+		[]int{4, 9, 11, 13, 18, 25}, 9,
+	))
+	fmt.Println("-----")
+	fmt.Println("list=[4, 9, 11, 13, 18, 25, 31], target=9, ans=??")
+	fmt.Println("ans(index) =", BinarySearchTemplate1(
+		[]int{4, 9, 11, 13, 18, 25, 31}, 9,
+	))
 }
 
-func BinarySearchPartitioning(nums []int, target int) (ansIndex int) {
+func BinarySearchTemplate1(nums []int, target int) (ansIndex int) {
 	ansIndex = -1
 
-	leftPartition := 0
-	rightPartition := len(nums)
+	if len(nums) == 0 {
+		return ansIndex
+	}
 
-	for {
-		shouldEnd := (rightPartition - leftPartition) <= 1
+	headIndex := 0
+	tailIndex := len(nums) - 1
 
-		//
-		midPartition := leftPartition + (rightPartition-leftPartition)/2
-		midItem := nums[midPartition]
+	for headIndex <= tailIndex {
+		diff := tailIndex - headIndex
+		midIndex := headIndex + diff/2 // selects a new mid, also note this floors
+		mid := nums[midIndex]
 
-		if target < midItem {
-			rightPartition = midPartition
-		} else if midItem < target {
-			leftPartition = midPartition
-		} else {
-			ansIndex = midPartition
+		// fmt.Println("  -> exec", "head:", nums[headIndex], "tail:", nums[tailIndex], "mid:", mid)
+
+		if mid == target {
+			ansIndex = midIndex
 			break
 		}
-		//
 
-		if shouldEnd {
-			break
+		if target < mid {
+			tailIndex = midIndex - 1
+			// set current tail to mid
+			// Next Search "head ~ mid"
+		}
+
+		if mid < target {
+			headIndex = midIndex + 1
+			// set head to be current mid
+			// Next Search "mid ~ tail"
 		}
 	}
 
@@ -54,5 +55,5 @@ func BinarySearchPartitioning(nums []int, target int) (ansIndex int) {
 }
 
 func Search(nums []int, target int) int {
-	return BinarySearchPartitioning(nums, target)
+	return BinarySearchTemplate1(nums, target)
 }
